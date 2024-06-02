@@ -29,3 +29,10 @@ export const badRequest = async (): Promise<HttpResponseModel> => {
         body: null,
     };
 };
+
+export const notFound = async (): Promise<HttpResponseModel> => {
+    return {
+        statusCode: 404,
+        body: null,
+    };
+};

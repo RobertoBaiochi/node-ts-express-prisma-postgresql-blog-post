@@ -1,5 +1,5 @@
 import { PostModel } from "../../models/posts-model";
-import { createNewPost } from "../../repositories/posts-repositories/create-new-post";
+import { createNewPost } from "../../repositories/posts/create-new-post-repository";
 import * as HttpResponse from "../../utils/http-helper";
 
 export const insertNewPostService = async (newPost: PostModel) => {

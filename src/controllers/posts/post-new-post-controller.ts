@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { insertNewPostService } from "../../services/posts-services/post-new-post-service";
+import { insertNewPostService } from "../../services/posts/post-new-post-service";
 
 export const insertNewPostController = async (req: Request, res: Response) => {
     const bodyContent = req.body;

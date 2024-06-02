@@ -1,7 +1,7 @@
 export interface CommentsModel {
-    id: number;
-    createdAt: string;
+    id: string;
+    createdAt: Date;
     name: string;
     comment: string;
-    postId: number;
+    postId: number | null;
 }
