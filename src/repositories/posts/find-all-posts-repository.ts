@@ -2,10 +2,7 @@ import { PostModel } from "../../models/posts-model";
 import prismaClient from "../../prismaClient";
 
 export const findAllPosts = async (): Promise<PostModel[]> => {
-    const whereClause: any = {};
-
     const data = await prismaClient.post.findMany({
-        where: whereClause,
         select: {
             id: true,
             author: true,
@@ -15,7 +12,18 @@ export const findAllPosts = async (): Promise<PostModel[]> => {
             text: true,
             title: true,
             updatedAt: true,
-            comment: true,
+            comment: {
+                orderBy: {
+                    createdAt: "asc",
+                },
+                select: {
+                    comment: true,
+                    createdAt: true,
+                    id: true,
+                    name: true,
+                    postId: true,
+                },
+            },
         },
     });
 
