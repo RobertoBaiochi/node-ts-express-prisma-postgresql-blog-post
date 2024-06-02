@@ -1,8 +1,8 @@
 import { PostModel } from "../../models/posts-model";
-import prismaClient from "../../prismaCliente";
+import prismaClient from "../../prismaClient";
 
 export const findPostByIdRepository = async (id: number) => {
-    const data: Partial<PostModel> = await prismaClient.post.findUnique({
+    const data: Partial<PostModel> | null = await prismaClient.post.findUnique({
         where: {
             id,
         },

@@ -1,5 +1,5 @@
 import { PostModel } from "../../models/posts-model";
-import prismaClient from "../../prismaCliente";
+import prismaClient from "../../prismaClient";
 
 export const updatePostByIdRepository = async (
     id: number,

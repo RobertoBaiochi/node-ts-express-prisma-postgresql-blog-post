@@ -1,5 +1,5 @@
 export interface CommentsModel {
-    id: string;
+    id: number;
     createdAt: Date;
     name: string;
     comment: string;

@@ -1,5 +1,5 @@
 import { PostModel } from "../../models/posts-model";
-import prismaClient from "../../prismaCliente";
+import prismaClient from "../../prismaClient";
 
 export const createNewPost = async (newPost: PostModel) => {
     const { author, description, tags, text, title } = newPost;
