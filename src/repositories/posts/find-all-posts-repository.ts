@@ -1,5 +1,5 @@
-import prismaClient from "../../../prismaCliente";
 import { PostModel } from "../../models/posts-model";
+import prismaClient from "../../prismaCliente";
 
 export const findAllPosts = async (): Promise<PostModel[]> => {
     const data = await prismaClient.post.findMany({
