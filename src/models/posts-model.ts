@@ -1,7 +1,7 @@
 import { CommentsModel } from "./comments-model";
 
 export interface PostModel {
-    id: string;
+    id: number;
     createdAt: Date;
     updatedAt: Date;
     title: string;
