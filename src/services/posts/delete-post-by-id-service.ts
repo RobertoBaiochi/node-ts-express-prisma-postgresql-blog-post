@@ -9,22 +9,28 @@ export const deletePostByIdService = async (id: number) => {
         response = await HttpResponse.badRequest();
         return response;
     }
+    try {
+        const idExist = await findPostByIdRepository(id);
 
-    const idExist = await findPostByIdRepository(id);
+        if (!idExist) {
+            response = await HttpResponse.badRequest();
+            return response;
+        }
 
-    if (!idExist) {
-        response = await HttpResponse.badRequest();
+        const isDelete = await deletePlayerByidRepository(id);
+
+        if (!isDelete) {
+            response = await HttpResponse.badRequest();
+            return response;
+        }
+
+        response = await HttpResponse.ok({ message: "Post Deleted" });
+
+        return response;
+    } catch (err) {
+        console.error("Error deleting post by ID: ", err);
+
+        response = await HttpResponse.serverError();
         return response;
     }
-
-    const isDelete = await deletePlayerByidRepository(id);
-
-    if (!isDelete) {
-        response = await HttpResponse.badRequest();
-        return response;
-    }
-
-    response = await HttpResponse.ok({ message: "Post Deleted" });
-
-    return response;
 };

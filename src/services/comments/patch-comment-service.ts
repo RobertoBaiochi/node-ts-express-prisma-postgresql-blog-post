@@ -6,21 +6,29 @@ export const patchCommentService = async (
     id: number,
     bodyContent: Partial<CommentsModel>
 ) => {
-    let result = null;
-    const { comment } = bodyContent;
+    let response = null;
 
-    if (!id || !comment) {
-        result = await HttpResponse.badRequest();
-        return result;
+    try {
+        const { comment } = bodyContent;
+
+        if (!id || !comment) {
+            response = await HttpResponse.badRequest();
+            return response;
+        }
+
+        const data = await updateCommentRepository(id, bodyContent);
+
+        if (!data) {
+            response = await HttpResponse.badRequest();
+            return response;
+        }
+
+        response = await HttpResponse.ok(data);
+        return response;
+    } catch (err) {
+        console.error("Error updating comment by ID: ", err);
+
+        response = await HttpResponse.serverError();
+        return response;
     }
-
-    const data = await updateCommentRepository(id, bodyContent);
-
-    if (!data) {
-        result = await HttpResponse.badRequest();
-        return result;
-    }
-
-    result = await HttpResponse.ok(data);
-    return result;
 };

@@ -2,14 +2,22 @@ import { findAllPosts as findAllPostsRepository } from "../../repositories/posts
 import * as HttpResponse from "../../utils/http-helper";
 
 export const getAllPostsService = async () => {
-    const data = await findAllPostsRepository();
     let response = null;
 
-    if (data.length === 0) {
-        response = await HttpResponse.noContent();
+    try {
+        const data = await findAllPostsRepository();
+
+        if (data.length === 0) {
+            response = await HttpResponse.noContent();
+            return response;
+        }
+
+        response = await HttpResponse.ok(data);
+        return response;
+    } catch (err) {
+        console.error("Error get all post: ", err);
+
+        response = await HttpResponse.serverError();
         return response;
     }
-
-    response = await HttpResponse.ok(data);
-    return response;
 };

@@ -36,3 +36,12 @@ export const notFound = async (): Promise<HttpResponseModel> => {
         body: null,
     };
 };
+
+export const serverError = async (): Promise<HttpResponseModel> => {
+    return {
+        statusCode: 500,
+        body: {
+            message: "Server error",
+        },
+    };
+};

@@ -9,14 +9,26 @@ export const insertNewCommentService = async (
     const { name, comment } = bodyContent;
     let response = null;
 
-    if (!name || !comment) {
-        response = await HttpResponse.badRequest();
+    try {
+        if (!name || !comment) {
+            response = await HttpResponse.badRequest();
+            return response;
+        }
+
+        const data = await insertNewCommentRepository(postId, name, comment);
+
+        if (!data) {
+            response = await HttpResponse.badRequest();
+            return response;
+        }
+
+        response = await HttpResponse.created();
+
+        return response;
+    } catch (err) {
+        console.error("Error posting comment: ", err);
+
+        response = await HttpResponse.serverError();
         return response;
     }
-
-    const data = await insertNewCommentRepository(postId, name, comment);
-
-    response = await HttpResponse.created();
-
-    return response;
 };

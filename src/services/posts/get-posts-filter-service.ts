@@ -5,21 +5,27 @@ import { filterPostByQuery } from "../../repositories/posts/filter-post-by-query
 
 export const getFilteredPostsService = async (req: Request) => {
     let filter = req.query.filter as string;
-
     let response = null;
 
-    if (!filter) {
-        response = await HttpResponse.noContent();
+    try {
+        if (!filter) {
+            response = await HttpResponse.noContent();
+            return response;
+        }
+
+        const data = await filterPostByQuery(filter);
+
+        if (data.length === 0) {
+            response = await HttpResponse.noContent();
+            return response;
+        }
+
+        response = await HttpResponse.ok(data);
+        return response;
+    } catch (err) {
+        console.error("Error filtering post by query String: ", err);
+
+        response = await HttpResponse.serverError();
         return response;
     }
-
-    const data = await filterPostByQuery(filter);
-
-    if (data.length === 0) {
-        response = await HttpResponse.noContent();
-        return response;
-    }
-
-    response = await HttpResponse.ok(data);
-    return response;
 };
